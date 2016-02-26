@@ -10,24 +10,64 @@
  */
 function google_recaptcha_install() {
 
-    $google_recaptcha = array(
-        'public_key' => '',
-        'secret_key' => '',
-        'protected_forms' => array(),
-        'statistics' => array(
-            'status' => 1,
-            'requests' => 0,
-            'success' => 0,
-            'fails' => 0,
-        ),
-    );
+  $google_recaptcha = array(
+    'public_key' => '',
+    'secret_key' => '',
+    'protected_forms' => array(),
+    'statistics' => array(
+      'status' => 1,
+      'requests' => 0,
+      'success' => 0,
+      'fails' => 0,
+    ),
+  );
 
-    variable_set('google_recaptcha', $google_recaptcha);
+  variable_set('google_recaptcha', $google_recaptcha);
 }
 
 /**
  * Implements hook_uninstall()
  */
 function google_recaptcha_uninstall() {
-    variable_del('google_recaptcha');
+  variable_del('google_recaptcha');
 }
+
+/**
+ * Implements hook_requirements($phase)
+ *
+ * @param $phase
+ *
+ * @return array
+ */
+function google_recaptcha_requirements($phase) {
+
+  if ($phase == 'runtime') {
+
+    $requirements = array();
+    $google_recaptcha = variable_get('google_recaptcha');
+
+    // Set message for admin that he must enter keys (if they empty now).
+    if (empty($google_recaptcha['public_key']) || empty($google_recaptcha['secret_key'])) {
+
+      $description = t('Google reCAPTCHA: You must to define public and secret 
+keys to protect Your site from spam. You can do it <a href="@page-with-keys">here >></a>.
+Better not to put it off on the later time - spammers are not asleep. <b>Let\'s make 
+their life harder!! :))</b>',
+        array('@page-with-keys' => '/admin/config/spam_protection/google_recaptcha/keys'));
+
+      $requirements['google_recaptcha_empty_keys'] = array(
+        'title' => t('Integration with Google reCAPTCHA service!'),
+        'value' => 'Not defined!',
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $description,
+      );
+    }
+  }
+  return $requirements;
+}
+
+
+
+
+
+

@@ -23,7 +23,9 @@ function google_recaptcha_summary() {
  * Create form for managing Google reCAPTCHA keys
  *
  * @param $form
- * @param $form_state
+ * @param &$form_state
+ * 
+ * @return $form
  */
 function google_recaptcha_keys($form, &$form_state) {
     $google_recaptcha = variable_get('google_recaptcha');
