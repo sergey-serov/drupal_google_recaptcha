@@ -52,9 +52,10 @@
   <div class="description"><?php print t('
         <em>Description.</em> Every request to Google server will increment these values appropriately.<br/>
         "Requests" is equal protected form submissions.<br/>
-        "Success" is equal correct filled reCAPTCHA and "fails" is equal incorrect filled (or not filled) reCAPTCHA.<br/>
         "Responses" - this count of all answers from Google servers (sum of "success" and "fails").
-    '); ?></div>
+        "Success" is equal correct filled reCAPTCHA.<br/>
+        "Fails" is equal incorrect filled (or not filled) reCAPTCHA.'); ?>
+  </div>
 <?php endif; ?>
 
 <h2><?php print t('Help'); ?></h2>

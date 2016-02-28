@@ -12,6 +12,7 @@
  * Statistics data - if was enabled (default)
  * Where to get additional information about Google reCAPTCHA
  *
+ * @return string
  */
 function google_recaptcha_summary() {
     $google_recaptcha = variable_get('google_recaptcha');
@@ -25,7 +26,7 @@ function google_recaptcha_summary() {
  * @param $form
  * @param &$form_state
  * 
- * @return $form
+ * @return array
  */
 function google_recaptcha_keys($form, &$form_state) {
     $google_recaptcha = variable_get('google_recaptcha');
@@ -111,6 +112,8 @@ function google_recaptcha_keys_submit($form, &$form_state) {
  *
  * @param $form
  * @param $form_state
+ *
+ * @return array
  */
 function google_recaptcha_forms($form, &$form_state) {
     $google_recaptcha = variable_get('google_recaptcha');
@@ -148,6 +151,8 @@ function google_recaptcha_forms($form, &$form_state) {
             }
         }
     }
+
+    drupal_alter('google_recaptcha_available_forms', $available_forms);
 
     // create form
     $form['#prefix'] = '<p>' . t('Check forms which You want to protect with Google reCAPTCHA') . '</p>';
@@ -188,7 +193,7 @@ function google_recaptcha_forms_validate($form, &$form_state) {}
 function google_recaptcha_forms_submit($form, &$form_state) {
     $google_recaptcha = variable_get('google_recaptcha');
 
-    // reset list with proetected forms
+    // reset list with protected forms
     // useful if some module which provided forms was disabled
     $google_recaptcha['protected_forms'] = array();
 

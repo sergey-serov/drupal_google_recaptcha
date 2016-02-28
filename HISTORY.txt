@@ -2,6 +2,7 @@
 -------------------
 - Move warning for site administrator about empty keys from hook_init to hook_requirements. Remove hook_init.
 - Issue #2537832 by nileshlohar: Access Denied for Configuration pages
+- Issue #2495009 by tikaszvince: Alter list of forms to protect
 
 
 

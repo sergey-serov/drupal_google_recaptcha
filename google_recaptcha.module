@@ -193,6 +193,7 @@ function google_recaptcha_ask_google($secret, $response, $remoteip) {
       'missing-input-response' => 'The response parameter is missing.',
       'invalid-input-response' => 'The response parameter is invalid or malformed.',
     );
+    drupal_alter('google_recaptcha_always_protect', $always_protected);
     if (!empty($response_data['error-codes'])) {
       $log_vars = array(
         '@error' => $error_codes[$response_data['error-codes'][0]],
