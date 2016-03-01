@@ -20,7 +20,15 @@ function g_add_captcha(&$form, $form_id) {
 
   $captcha_form_name = 'google_recaptcha_' . $form_id;
   $captcha_container = '<div id="' . $captcha_form_name . '"></div>';
-  $captcha_js = 'grecaptcha.render("' . $captcha_form_name . '", {"sitekey" : "' . $tune['public_key'] . '"});';
+
+  $widget_size = $form_id == 'user_login_block' ? 'compact' : $tune['settings']['widget_size'];
+  $widget_theme = $tune['settings']['widget_theme'];
+
+  $captcha_js = 'grecaptcha.render("' . $captcha_form_name . '", {
+    "sitekey" : "' . $tune['public_key'] . '", 
+    "size" : "' . $widget_size . '", 
+    "theme" : "' . $widget_theme . '"});
+  ';
 
   $form['actions']['submit']['#prefix'] = empty($form['actions']['submit']['#prefix']) ? $captcha_container : $captcha_container . $form['actions']['submit']['#prefix'];
   $form['#validate'][] = 'g_validate_submission';
@@ -40,9 +48,9 @@ function g_validate_submission($form, &$form_state) {
   $tune = variable_get('google_recaptcha');
   $secret = !empty($tune['secret_key']) ? $tune['secret_key'] : '';
   $response = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
-  $remoteip = ip_address();
+  $remote_ip = ip_address();
 
-  $answer = g_ask_google($secret, $response, $remoteip);
+  $answer = g_ask_google($secret, $response, $remote_ip);
 
   // collect statistics about requests and responses (if enabled)
   if ($tune['statistics']['status'] == 1) {
@@ -94,7 +102,7 @@ function g_ask_google($secret, $response, $remoteip) {
       'missing-input-response' => 'The response parameter is missing.',
       'invalid-input-response' => 'The response parameter is invalid or malformed.',
     );
-    drupal_alter('google_recaptcha_always_protect', $always_protected);
+
     if (!empty($response['error-codes']) && $tune['settings']['write_log'] == 1) {
       $log_vars = array(
         '@error' => $error_codes[$response['error-codes'][0]],

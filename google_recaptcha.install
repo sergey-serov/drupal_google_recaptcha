@@ -22,6 +22,8 @@ function google_recaptcha_install() {
     ),
     'settings' => array(
       'write_log' => 0,
+      'widget_size' => 'normal', // possible values: compact, normal (default).
+      'widget_theme' => 'light', // possible values: dark, light (default).
     ),
   );
 
@@ -77,6 +79,8 @@ function google_recaptcha_update_7000() {
   $tune = variable_get('google_recaptcha');
   $tune['settings'] = array(
     'write_log' => 0,
+    'widget_size' => 'normal',
+    'widget_theme' => 'light',
   );
   variable_set('google_recaptcha', $tune);
 }

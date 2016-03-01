@@ -54,6 +54,18 @@ Be careful if You have several sites - check that this pair of keys exactly for 
     '#maxlength' => 40,
     '#required' => TRUE,
   );
+  $form['widget_size'] = array(
+    '#title' => t('Widget size'),
+    '#type' => 'select',
+    '#options' => array('normal' => 'normal', 'compact' => 'compact'),
+    '#default_value' => $tune['settings']['widget_size'],
+  );
+  $form['widget_theme'] = array(
+    '#title' => t('Widget theme'),
+    '#type' => 'select',
+    '#options' => array('light' => 'light', 'dark' => 'dark'),
+    '#default_value' => $tune['settings']['widget_theme'],
+  );
   $form['collect_statistics'] = array(
     '#title' => t('Collect statistics'),
     '#type' => 'checkbox',
@@ -104,6 +116,8 @@ function g_tune_submit($form, &$form_state) {
   $tune['secret_key'] = $form_state['values']['secret_key'];
   $tune['statistics']['status'] = $form_state['values']['collect_statistics'];
   $tune['settings']['write_log'] = $form_state['values']['write_log'];
+  $tune['settings']['widget_size'] = $form_state['values']['widget_size'];
+  $tune['settings']['widget_theme'] = $form_state['values']['widget_theme'];
 
   // reset statistics data if was disabled
   if ($form_state['values']['collect_statistics'] == 0) {

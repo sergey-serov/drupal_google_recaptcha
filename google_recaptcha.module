@@ -84,6 +84,8 @@ function google_recaptcha_form_alter(&$form, &$form_state, $form_id) {
     'user_login_block'
   );
 
+  drupal_alter('google_recaptcha_always_protect', $always_protected);
+
   if (in_array($form_id, $always_protected)) {
     g_add_captcha($form, $form_id);
   }
