@@ -10,7 +10,7 @@
  */
 function google_recaptcha_install() {
 
-  $google_recaptcha = array(
+  $tune = array(
     'public_key' => '',
     'secret_key' => '',
     'protected_forms' => array(),
@@ -20,9 +20,12 @@ function google_recaptcha_install() {
       'success' => 0,
       'fails' => 0,
     ),
+    'settings' => array(
+      'write_log' => 0,
+    ),
   );
 
-  variable_set('google_recaptcha', $google_recaptcha);
+  variable_set('google_recaptcha', $tune);
 }
 
 /**
@@ -41,13 +44,14 @@ function google_recaptcha_uninstall() {
  */
 function google_recaptcha_requirements($phase) {
 
+  $requirements = array();
   if ($phase == 'runtime') {
 
-    $requirements = array();
-    $google_recaptcha = variable_get('google_recaptcha');
+
+    $tune = variable_get('google_recaptcha');
 
     // Set message for admin that he must enter keys (if they empty now).
-    if (empty($google_recaptcha['public_key']) || empty($google_recaptcha['secret_key'])) {
+    if (empty($tune['public_key']) || empty($tune['secret_key'])) {
 
       $description = t('Google reCAPTCHA: You must to define public and secret 
 keys to protect Your site from spam. You can do it <a href="@page-with-keys">here >></a>.
@@ -66,7 +70,16 @@ their life harder!! :))</b>',
   return $requirements;
 }
 
-
+/**
+ * Add new setting 'write_log' to module variables.
+ */
+function google_recaptcha_update_7000() {
+  $tune = variable_get('google_recaptcha');
+  $tune['settings'] = array(
+    'write_log' => 0,
+  );
+  variable_set('google_recaptcha', $tune);
+}
 
 
 
