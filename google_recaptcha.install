@@ -73,9 +73,9 @@ their life harder!! :))</b>',
 }
 
 /**
- * Add new setting 'write_log' to module variables.
+ * Add new options to settings: 'widget_theme', 'widget_size' and 'write_log'.
  */
-function google_recaptcha_update_7000() {
+function google_recaptcha_update_7100() {
   $tune = variable_get('google_recaptcha');
   $tune['settings'] = array(
     'write_log' => 0,
