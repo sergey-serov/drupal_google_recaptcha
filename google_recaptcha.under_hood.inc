@@ -10,18 +10,19 @@
 function g_add_captcha(&$form, $form_id) {
   $tune = variable_get('google_recaptcha');
 
-  $js_options = array(
+  $url = 'https://www.google.com/recaptcha/api.js?onload=google_recaptcha_onload&render=explicit';
+  if (!empty($tune['settings']['language'])) {
+    $url .= '&hl=' . $tune['settings']['language'];
+  }
+
+  $recaptcha_api = array(
+    'data' => $url,
     'scope' => 'footer',
     'type' => 'external',
     'defer' => TRUE,
     // and we waiting when 'async' param will be in core....
   );
-
-  $url = 'https://www.google.com/recaptcha/api.js?onload=google_recaptcha_onload&render=explicit';
-  if (!empty($tune['settings']['language'])) {
-    $url .= '&hl=' . $tune['settings']['language'];
-  }
-  drupal_add_js($url, $js_options);
+  $form['#attached']['js'][] = $recaptcha_api;
 
   $captcha_form_name = 'google_recaptcha_' . $form_id;
   $captcha_container = '<div id="' . $captcha_form_name . '"></div>';
@@ -35,11 +36,15 @@ function g_add_captcha(&$form, $form_id) {
     "theme" : "' . $widget_theme . '"});
   ';
 
+  $recaptcha_load = array(
+    'data' => 'var google_recaptcha_onload = function() {' . $captcha_js . '};',
+    'scope' => 'header',
+    'type' => 'inline',
+  );
+  $form['#attached']['js'][] = $recaptcha_load;
+
   $form['actions']['submit']['#prefix'] = empty($form['actions']['submit']['#prefix']) ? $captcha_container : $captcha_container . $form['actions']['submit']['#prefix'];
   $form['#validate'][] = 'g_validate_submission';
-
-  $tune_js = &drupal_static('google_recaptcha_js');
-  $tune_js .= $captcha_js;
 }
 
 /**
