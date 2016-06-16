@@ -54,6 +54,14 @@ Be careful if You have several sites - check that this pair of keys exactly for 
     '#maxlength' => 40,
     '#required' => TRUE,
   );
+  $form['language'] = array(
+    '#title' => t('Google reCAPTCHA language'),
+    '#description' => t('Enter the language code that can be found here: https://developers.google.com/recaptcha/docs/language'),
+    '#type' => 'textfield',
+    '#default_value' => empty($tune['settings']['language']) ? 'en' : $tune['settings']['language'],
+    '#size' => 10,
+    '#maxlength' => 10,
+  );
   $form['widget_size'] = array(
     '#title' => t('Widget size'),
     '#type' => 'select',
@@ -118,6 +126,7 @@ function g_tune_submit($form, &$form_state) {
   $tune['settings']['write_log'] = $form_state['values']['write_log'];
   $tune['settings']['widget_size'] = $form_state['values']['widget_size'];
   $tune['settings']['widget_theme'] = $form_state['values']['widget_theme'];
+  $tune['settings']['language'] = $form_state['values']['language'];
 
   // reset statistics data if was disabled
   if ($form_state['values']['collect_statistics'] == 0) {

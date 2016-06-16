@@ -16,7 +16,12 @@ function g_add_captcha(&$form, $form_id) {
     'defer' => TRUE,
     // and we waiting when 'async' param will be in core....
   );
-  drupal_add_js('https://www.google.com/recaptcha/api.js?onload=google_recaptcha_onload&render=explicit', $js_options);
+
+  $url = 'https://www.google.com/recaptcha/api.js?onload=google_recaptcha_onload&render=explicit';
+  if (!empty($tune['settings']['language'])) {
+    $url .= '&hl=' . $tune['settings']['language'];
+  }
+  drupal_add_js($url, $js_options);
 
   $captcha_form_name = 'google_recaptcha_' . $form_id;
   $captcha_container = '<div id="' . $captcha_form_name . '"></div>';

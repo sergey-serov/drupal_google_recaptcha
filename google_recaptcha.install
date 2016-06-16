@@ -24,6 +24,7 @@ function google_recaptcha_install() {
       'write_log' => 0,
       'widget_size' => 'normal', // possible values: compact, normal (default).
       'widget_theme' => 'light', // possible values: dark, light (default).
+      'language' => 'en', // possible values: https://developers.google.com/recaptcha/docs/language
     ),
   );
 
