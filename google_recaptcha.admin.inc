@@ -184,12 +184,15 @@ function g_forms($form, &$form_state) {
       }
     }
   }
+  $available_forms['user_login'] = t('User Login') . ' <b>(' . t('recommended for security') . ')</b>';
+  $available_forms['user_login_block'] = t('User Login Block') . ' <b>(' . t('recommended for security') . ')</b>';
+  $available_forms['user_register_form'] = t('User Register') . ' <b>(' . t('recommended for security') . ')</b>';
 
   drupal_alter('google_recaptcha_available_forms', $available_forms);
 
   // create form
   $form['#prefix'] = '<p>' . t('Check forms which You want to protect with Google reCAPTCHA') . '</p>';
-  $form['#prefix'] .= '<div class="description">' . t('For security usability reasons - forms for <b>user registration</b>, <b>recovery pass</b> and <b>login</b> always protected!') . '</div>';
+  $form['#prefix'] .= '<div class="description">' . t('For security usability reasons - form <b><i>"recovery pass"</i></b> is always protected!') . '</div>';
 
   foreach ($available_forms as $available_form_name => $available_form_title) {
     $form['available_forms'][$available_form_name] = array(

@@ -1,7 +1,9 @@
 7.x-1.2, 2016-06-__
 -------------------
-- Issue #2693669 by michiellucas: Added language support
-- Issue #2744387 by generalconsensus: Allow Site Builders to alter forms without the use of the drupal_alter hook
+- Issue #2693669 by michiellucas: Added language support.
+- Issue #2744387 by generalconsensus: Allow Site Builders to alter forms without the use of the drupal_alter hook.
+- Issue #2635926 by Khalid S, Akshita: Google Recaptcha disappears on post back forms. The same also here #2681255.
+
 
 
 7.x-1.1, 2016-03-01

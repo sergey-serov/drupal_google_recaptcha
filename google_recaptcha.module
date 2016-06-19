@@ -75,13 +75,9 @@ function google_recaptcha_form_alter(&$form, &$form_state, $form_id) {
 
   $tune = variable_get('google_recaptcha');
 
-  // For security usability reasons - forms for
-  // user registration, recovery pass and login always protected
+  // For security usability reasons - form for recovery pass always protected
   $always_protected = array(
-    'user_login',
-    'user_register_form',
     'user_pass',
-    'user_login_block'
   );
 
   drupal_alter('google_recaptcha_always_protect', $always_protected);
@@ -96,3 +92,7 @@ function google_recaptcha_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 }
+
+
+
+

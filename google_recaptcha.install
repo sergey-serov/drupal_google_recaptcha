@@ -13,7 +13,11 @@ function google_recaptcha_install() {
   $tune = array(
     'public_key' => '',
     'secret_key' => '',
-    'protected_forms' => array(),
+    'protected_forms' => array( // forms selected by default for protection
+      'user_login',
+      'user_login_block',
+      'user_register_form',
+    ),
     'statistics' => array(
       'status' => 1,
       'requests' => 0,

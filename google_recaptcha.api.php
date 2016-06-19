@@ -18,7 +18,8 @@
  */
 function hook_google_recaptcha_always_protect_alter(&$always_protected) {
   // Add search form to the list of always protected forms.
-  $always_protected[] = 'search_form';
+//  $always_protected[] = 'search_form'; todo to think about it :)
+// todo provide description for other how to use hook for their custom forms via FORM_ID 
 }
 
 /**
@@ -29,7 +30,7 @@ function hook_google_recaptcha_always_protect_alter(&$always_protected) {
  */
 function hook_google_recaptcha_available_forms_alter(&$available_forms) {
   // Add search form to the list of always protected forms.
-  $always_protected['search_'] = t('Search');
+//  $always_protected['search_'] = t('Search');
 }
 
 /**
