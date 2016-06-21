@@ -90,6 +90,21 @@ function google_recaptcha_update_7100() {
   variable_set('google_recaptcha', $tune);
 }
 
+/**
+ * Added 'user_login', 'user_login_block' and 'user_register_form' forms to protected forms array.
+ * Because now they are not protected always and maybe customised by site administrator.
+ */
+function google_recaptcha_update_7101() {
+  $tune = variable_get('google_recaptcha');
+
+  $tune['protected_forms'] += array(
+    'user_login',
+    'user_login_block',
+    'user_register_form',
+  );
+
+  variable_set('google_recaptcha', $tune);
+}
 
 
 
